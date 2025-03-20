@@ -1,0 +1,160 @@
+завдання(1)
+  import random
+
+def guess_the_number():
+    number = random.randint(1, 10)
+    print("Вгадай число від 1 до 10!")
+    
+    while True:
+        try:
+            guess = int(input("Введіть вашу відповідь: "))
+            if guess < number:
+                print("Більше!")
+            elif guess > number:
+                print("Менше!")
+            else:
+                print("Вітаю! Ви вгадали число! 🎉")
+                break
+        except ValueError:
+            print("Будь ласка, введіть ціле число!")
+
+if __name__ == "__main__":
+    guess_the_number()
+
+завдання(2)
+import random
+
+def guess_the_number():
+    number = random.randint(1, 50)
+    print("Вгадай число від 1 до 50!")
+    
+    while True:
+        try:
+            guess = int(input("Введіть вашу відповідь"))
+            difference = abs(guess - number)
+            
+            if difference == 0:
+                print("Вітаю! Ви вгадали число!")
+                break
+            elif difference <= 3:
+                print("Дуже близько!")
+            elif difference <= 10:
+                print("Близько!")
+            else:
+                print("Далеко!")
+        except ValueError:
+            print("Будь ласка, введіть ціле число!")
+
+if __name__ == "__main__":
+    guess_the_number()
+
+завдання(3)
+import random
+
+def generate_pin():
+    return str(random.randint(1000, 9999))
+
+def count_correct_digits(secret, guess):
+    return sum(1 for s, g in zip(secret, guess) if s == g)
+
+def guess_pin():
+    pin = generate_pin()
+    attempts = 5
+    print("Вгадай 4-значний PIN-код! У вас є 5 спроб.")
+    
+    while attempts > 0:
+        guess = input("Введіть ваш PIN-код: ")
+        
+        if not guess.isdigit() or len(guess) != 4:
+            print("Будь ласка, введіть 4-значний числовий код!")
+            continue
+        
+        if guess == pin:
+            print("Вітаю! Ви вгадали PIN-код! 🎉")
+            return
+        else:
+            attempts -= 1
+            correct_digits = count_correct_digits(pin, guess)
+            if attempts > 0:
+                print(f"Неправильно! Правильних цифр на місці: {correct_digits}. Залишилось спроб: {attempts}")
+            else:
+                print(f"Ви використали всі спроби. Секретний PIN-код: {pin}")
+
+if __name__ == "__main__":
+    guess_pin()
+
+
+завдання(4)
+import random
+
+def generate_pin():
+    return str(random.randint(1000, 9999))
+
+def count_correct_digits(secret, guess):
+    return sum(1 for s, g in zip(secret, guess) if s == g)
+
+def guess_pin():
+    pin = generate_pin()
+    attempts = 5
+    print("Вгадай 4-значний PIN-код! У вас є 5 спроб.")
+    
+    while attempts > 0:
+        guess = input("Введіть ваш PIN-код: ")
+        
+        if not guess.isdigit() or len(guess) != 4:
+            print("Будь ласка, введіть 4-значний числовий код!")
+            continue
+        
+        if guess == pin:
+            print("Вітаю! Ви вгадали PIN-код! 🎉")
+            return
+        else:
+            attempts -= 1
+            correct_digits = count_correct_digits(pin, guess)
+            if attempts > 0:
+                print(f"Неправильно! Правильних цифр на місці: {correct_digits}. Залишилось спроб: {attempts}")
+            else:
+                print(f"Ви використали всі спроби. Секретний PIN-код: {pin}")
+
+if __name__ == "__main__":
+    guess_pin()
+
+
+завдання(5)
+import tkinter as tk
+import random
+
+colors = ["червоний", "синій", "зелений", "жовтий", "фіолетовий"]
+warm_colors = ["червоний", "жовтий"]
+cold_colors = ["синій", "зелений", "фіолетовий"]
+
+root = tk.Tk()
+root.title("Гра: Кольоровий код")
+
+secret_color = random.choice(colors)
+
+def check_color():
+    guess = entry.get().lower()
+    if guess == secret_color:
+        result_label.config(text="Вітаємо! Ви вгадали колір!", fg="green")
+    elif guess in warm_colors:
+        result_label.config(text="Це теплий колір!", fg="orange")
+    elif guess in cold_colors:
+        result_label.config(text="Це холодний колір!", fg="blue")
+    else:
+        result_label.config(text="Цей колір не є в списку можливих.", fg="red")
+    entry.delete(0, tk.END)
+
+instruction_label = tk.Label(root, text="Вгадайте колір! Введіть один з таких кольорів: червоний, синій, зелений, жовтий, фіолетовий.")
+instruction_label.pack()
+
+entry = tk.Entry(root)
+entry.pack()
+
+check_button = tk.Button(root, text="Перевірити", command=check_color)
+check_button.pack()
+
+result_label = tk.Label(root, text="")
+result_label.pack()
+
+root.mainloop()
